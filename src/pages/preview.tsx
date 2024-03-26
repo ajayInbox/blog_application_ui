@@ -9,7 +9,7 @@ import { useMutation } from '@tanstack/react-query'
 import { addArticle } from '../api-v2'
 import { useNavigate } from 'react-router-dom'
 
-export default () => {
+export default function Preview(){
   const { wholeContent } = useContentContext()
   const{ articleBannerUrl, articleTitle, articleContent, articleTags} = wholeContent
   const navigate = useNavigate()

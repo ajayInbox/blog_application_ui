@@ -25,7 +25,7 @@ export default function BlogEditorV1() {
 
     const handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setTitle(e.target.value)
-        let input = e.target
+        const input = e.target
         input.style.height = 'auto'
         input.style.height = input.scrollHeight + "px"
     }

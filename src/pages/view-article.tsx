@@ -1,8 +1,24 @@
-import { Link } from 'react-router-dom'
-import UserCard from '../components/user-card'
+import { Link, useParams } from 'react-router-dom'
 import ViewArticle from '../components/view-article'
+import { getArticleById } from '../api-v2'
+import { useQuery } from '@tanstack/react-query'
 
 export default function ViewArticlePage() {
+
+    const params = useParams()
+    const id = Number(params.articleId)
+
+    const individualArticleQuery = useQuery({
+        queryKey: ["articles", id],
+        queryFn: () => getArticleById(id)
+    })
+
+    const{ data } = individualArticleQuery
+    console.log(data)
+
+    if(individualArticleQuery.isLoading) return <div>Loading...</div>
+    if(individualArticleQuery.isError) return <div>{JSON.stringify(individualArticleQuery.error)}</div>
+
   return (
     <div>
         <nav className='navbar justify-between'>
@@ -12,12 +28,12 @@ export default function ViewArticlePage() {
                 </h1>
             </Link>
         </nav>
-        <div className='flex bg-grey'>
-            <section className='w-full mx-auto'>
-                <ViewArticle/>
-            </section>
-            <section className='hidden w-[25%] fixed right-0'>
-                <UserCard/>
+        <div className='bg-grey'>
+            <section className='mx-auto max-w-[1300px] w-full bg-white'>
+                <div className='relative w-full h-[400px] hover:opacity-80 border-4 border-grey mx-auto'>
+                    <img src={data?.articleBannerUrl} alt='image'/>
+                </div>
+                <ViewArticle data={data}/>
             </section>
         </div>
     </div>

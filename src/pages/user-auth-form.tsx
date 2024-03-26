@@ -1,8 +1,11 @@
 import { useRef } from 'react'
 import Inputbox from '../components/inputbox'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Toaster, toast} from "react-hot-toast"
 import Navbar from '../components/navbar'
+import { registerApi } from '../api-v2'
+import { useMutation } from '@tanstack/react-query'
+import { RegisterReq } from '../types'
 
 type FormDataType = {
     [key : string]: FormDataEntryValue
@@ -12,6 +15,13 @@ type FormDataType = {
 export default function UserAuthForm({type}: {type: string}) {
 
     const authRef = useRef<HTMLFormElement | null>(null)
+    const navigate = useNavigate()
+
+    const mutation = useMutation({
+        mutationFn: (body: RegisterReq) => registerApi(body)
+    })
+
+    const {data} = mutation
 
     const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault()
@@ -20,27 +30,45 @@ export default function UserAuthForm({type}: {type: string}) {
         if(authRef.current){
              form = new FormData(authRef.current)
         }
-        let formData:FormDataType = {}
+        const formData:FormDataType = {}
 
-        for(let [key , value] of form.entries()){
+        for(const [key , value] of form.entries()){
             formData[key] = value
         }
 
         const {fullName, email, password} = formData
-        console.log(formData)
+        let toSubmit = true;
         if(fullName){
             if(fullName.toString().length<3){
                 toast.error("full name is invalid")
+                toSubmit = false
             }
         }
-        if(!email.toString().match("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")){
+        else if(!email.toString().match("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")){
             toast.error("Email is invalid")
+            toSubmit = false
         }
-        if(password.toString().length<8){
+        else if(password.toString().length<8){
             toast.error("Password is Invalid")
+            toSubmit = false
         }
+        
+        if(toSubmit && fullName){
+            console.log(formData)
+            mutation.mutate({handleName:fullName.toString(), email:email.toString(), password:password.toString()})
+            
+        }
+        
 
         
+    }
+
+    if(mutation.isError){
+        console.log(mutation.error)
+    }
+    if(mutation.isSuccess){
+        console.log(data)
+        navigate("/signin")
     }
 
   return (

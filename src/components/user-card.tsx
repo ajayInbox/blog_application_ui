@@ -1,23 +1,14 @@
+import { CircleUserRound } from "lucide-react";
+import { UserType } from "../types/user-type";
 
-export default function UserCard() {
+export default function UserCard({user}:{user:UserType}) {
   return (
-    <div className=" max-w-[370px] h-[300px] p-5 border-opacity-60 bg-white">
-        <div className="flex items-center justify-between">
-            <section className="">
-                <p className="pb-3 text-dark-grey font-semibold text-xl">full Name</p>
-                <p className="pb-3 text-dark-grey font-semibold text-xl">handle name</p>
-            </section>
-            <div className="border border-dark-grey w-[65px] h-[65px] rounded-full">
-                <img src="" alt="" className="cover-fit"/>
-            </div>
-        </div>
-        <hr className="w-full opacity-40 my-1"/>
-        <div className="p-5 flex flex-col">
-            <p className="pb-3 text-dark-grey font-semibold text-xl">grug no dev, grug small brain</p>
-            <p className="pb-3 text-dark-grey font-semibold text-xl">Joined: <span>11 Nov</span></p> 
-            <p className="pb-3 text-dark-grey font-semibold text-xl">Worked: <span>Infosys Limited</span></p>
-            <button className="text-white bg-purple p-3 font-semibold text-xl">Follow</button>
-        </div>
+    <div className=" max-w-[370px] h-[300px] p-5 bg-grey flex flex-col items-center rounded-lg mx-3 mt-7 mb-3">
+        <p className="text-[20px] font-bold">Author</p>
+        <p className="">{user.handleName}</p>
+        <CircleUserRound size={120} strokeWidth={1.5} />
+        <p className="p-3">Something about user from bio or self introduction</p>
+        <button className="px-20 py-3 bg-twitter text-white rounded-md">Follow</button>
     </div>
   )
 }

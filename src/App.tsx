@@ -1,9 +1,10 @@
 import { Routes, Route } from "react-router-dom"
-import UserAuthForm from "./pages/user-auth-form"
 import Editor from "./pages/editor"
 import Preview from "./pages/preview"
 import Home from "./pages/Home"
 import ViewArticlePage from "./pages/view-article"
+import SignIn from "./components/sign-in"
+import SignUp from "./components/sign-up"
 
 
 function App() {
@@ -16,8 +17,8 @@ function App() {
       <Route path="/preview" element={<Preview/>}/>
       <Route path="/" element={<Home/>}>
       </Route>
-      <Route path="/signin" element={<UserAuthForm type="sign-in"/>}/>
-      <Route path="/signup" element={<UserAuthForm type="sign-up"/>}/>
+      <Route path="/signin" element={<SignIn/>}/>
+      <Route path="/signup" element={<SignUp/>}/>
       <Route path="/article/:articleId" element={<ViewArticlePage/>}/>
     </Routes>
     </>

@@ -1,25 +1,17 @@
-import { useQuery } from "@tanstack/react-query"
-import { getArticleById } from "../api-v2"
 import { Editor, EditorContent } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
 import Image from '@tiptap/extension-image'
 import React from "react"
-import { useParams } from "react-router-dom"
+import ArticleStat from "./article-stats"
+import UserCard from "./user-card"
+import SmallArticleView from "./small-article-view"
+import PostComment from "./post-comment"
+import { ArticleResultType, ArticleTag } from "../types/article-type"
 
-export default function ViewArticle() {
+export default function ViewArticle({data}:{data:ArticleResultType}) {
 
-  const params = useParams()
-  const id = Number(params.articleId)
-
-  const individualArticleQuery = useQuery({
-    queryKey: ["articles", id],
-    queryFn: () => getArticleById(id)
-  })
-
-  const{ data } = individualArticleQuery
-
-  if(individualArticleQuery.isLoading) return <div>Loading...</div>
-  if(individualArticleQuery.isError) return <div>{JSON.stringify(individualArticleQuery.error)}</div>
+    const {articleBannerUrl, articleContent, articleId, articleTitle, createdAt, readTime, tags, user} = data
+  
 
   const editor = new Editor({
      editorProps: {
@@ -29,7 +21,7 @@ export default function ViewArticle() {
     },
     editable:false,
     content: `
-        ${data.articleContent}
+        ${articleContent}
       `,
     extensions: [
       StarterKit, 
@@ -46,21 +38,36 @@ export default function ViewArticle() {
   }
 
   return (
-    <div>
-      <div className='mx-auto max-w-[900px] w-full bg-white'>
-        <div className='relative w-full h-[300px] hover:opacity-80 border-4 border-grey mx-auto'>
-          <img src={data.articleBannerUrl} alt='image'/>
-        </div>
-        <div className='p-7 m-auto w-full'>
-          <h1 className='text-[48px] font-bold'>{data.articleTitle}</h1>
-          {data.articleTags && data.articleTags?.split(",").map((tag: string, index: number) =>(
-            <React.Fragment key={index}>
-              <span className='batch'>{tag}</span>
+    <section className="flex flex-col">
+    <div className="flex">
+      <div className="w-[15%]">
+        <ArticleStat/>
+      </div>
+      <div className='p-7 mx-auto w-full'>
+        <h1 className='text-[48px] font-bold'>{articleTitle}</h1>
+        {tags && tags.map((tag: ArticleTag) =>(
+          <React.Fragment key={tag.tagId}>
+            <span className='batch'>{tag.tagLabel}</span>
+          </React.Fragment>
+        ))}
+        <EditorContent editor={editor} className="py-3"/>
+      </div>
+      <div className="w-[35%]">
+        <UserCard user={user}/>
+        <div>
+          <h2 className="font-semibold text-[20px] p-3">Latest from User</h2>
+          {user.articles.map((id: number) =>(
+            <React.Fragment>
+              <SmallArticleView id={id}/>
             </React.Fragment>
           ))}
-          <EditorContent editor={editor} />
         </div>
-        </div>
+      </div>
     </div>
+    <div className="ml-40">
+      <PostComment/>
+    </div>
+    
+    </section>
   )
 }
