@@ -1,3 +1,5 @@
+import { ArticleResultTypeV2 } from "./article-type"
+
 export type UserType = {
     userId: number,
     handleName: string,
@@ -5,8 +7,9 @@ export type UserType = {
     password: string,
     isEnabled: boolean,
     joinedAt: string,
+    aboutYou: string,
     roles: RoleType[],
-    articles: []
+    articles: ArticleResultTypeV2[]
 }
 
 export type RoleType = {

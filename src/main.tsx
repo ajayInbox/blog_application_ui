@@ -4,8 +4,8 @@ import './index.css'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { store } from "./store/index.tsx"
-import  ContentContextProvider  from "./context/content-context.tsx"
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import TagResultContextProvider from './context/tags-context.tsx'
 
 
 const queryClient = new QueryClient()
@@ -16,9 +16,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <QueryClientProvider client={queryClient}>
     <BrowserRouter>
     <Provider store={store}>
-    <ContentContextProvider>
+    <TagResultContextProvider>
     <App />
-    </ContentContextProvider>
+    </TagResultContextProvider>
     </Provider>
     </BrowserRouter>
     </QueryClientProvider>

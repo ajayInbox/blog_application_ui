@@ -8,7 +8,7 @@ export default function UserCard({user}:{user:UserType}) {
         <p className="">{user.handleName}</p>
         <CircleUserRound size={120} strokeWidth={1.5} />
         <p className="p-3">Something about user from bio or self introduction</p>
-        <button className="px-20 py-3 bg-twitter text-white rounded-md">Follow</button>
+        <button className="px-20 py-3 bg-twitter text-white rounded-md" disabled>Follow</button>
     </div>
   )
 }

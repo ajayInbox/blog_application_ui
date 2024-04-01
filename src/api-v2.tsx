@@ -1,6 +1,7 @@
 import axios from "axios";
-import { ArticleResultType, ArticleTag, ArticleType } from "./types/article-type"
+import { ArticleResultType, ArticleTag, ArticleTagV2, ArticleType } from "./types/article-type"
 import { AuthenticationReq, RegisterReq } from "./types/auth-type"
+import { UserType } from "./types/user-type";
 
 export function getAllArticles(): Promise<ArticleResultType[]>{
     return axios.get("http://localhost:8080/api/v1/posts-with-user")
@@ -55,7 +56,17 @@ export function getArticleForLatest(id:number){
     .then(res => res.data)
 }
 
-export function getAllTrandingTags(): Promise<ArticleTag[]>{
-    return axios.get("http://localhost:8080/api/v1/tags/all")
+export function getAllTrandingTags(): Promise<ArticleTagV2[]>{
+    return axios.get("http://localhost:8080/api/v1/tags/all/v2")
+    .then(res => res.data)
+}
+
+export function getTagAssociatedArticlesByTagId(tagId: number): Promise<ArticleResultType[]>{
+    return axios.get(`http://localhost:8080/api/v1/posts/with-tag/${tagId}`)
+    .then(res => res.data)
+}
+
+export function getUserById(userId: number): Promise<UserType> {
+    return axios.get(`http://localhost:8080/api/v1/user/${userId}`)
     .then(res => res.data)
 }

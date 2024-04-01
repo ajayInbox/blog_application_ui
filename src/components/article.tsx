@@ -3,10 +3,13 @@ import { Bookmark, CircleUserRound } from 'lucide-react'
 import React from 'react'
 import { ArticleResultType, ArticleTag } from '../types/article-type'
 import { useNavigate } from 'react-router-dom'
+import { useTagResultContext } from '../context/tags-context'
 
 export default function Article(article: ArticleResultType) {
 
-    const{ articleId, articleBannerUrl, articleTitle, articleContent, tags, readTime, createdAt, user} = article
+    const { articleId, articleBannerUrl, articleTitle, articleContent, tags, readTime, createdAt, user} = article
+
+    const { setUserId } = useTagResultContext()
 
     const day = new Date(createdAt).getDate()
     const monthName = new Date(createdAt).toLocaleString('default', { month: 'long' })
@@ -14,15 +17,20 @@ export default function Article(article: ArticleResultType) {
 
     const navigate = useNavigate();
     const gotoThatArticle = () =>{
-        navigate(`article/${articleId}`)
+        navigate(`/article/${articleId}`)
+    }
+
+    const handleClickOnUser = () => {
+        setUserId(user.userId)
+        navigate("/profile")
     }
 
   return (
     <section className='max-w-[950px] w-full flex p-7 bg-white mb-2.5 rounded-md'>
         <div className='w-full lg:w-[70%]'>
-                <div className='flex items-center gap-2'>
-                    <CircleUserRound />
-                    <p className="font-semibold">{user.handleName}</p>
+                <div className='flex items-center gap-2 cursor-pointer'>
+                    <CircleUserRound onClick={() =>handleClickOnUser()}/>
+                    <p className="font-semibold" onClick={() =>handleClickOnUser()}>{user.handleName}</p>
                     <p className="font-medium text-dark-grey">{dateToDisplay}</p>
                 </div>
                 <div className='flex flex-col items-start w-full py-3 cursor-pointer' onClick={gotoThatArticle}>

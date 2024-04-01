@@ -2,7 +2,6 @@ import Article from './article'
 import { useQuery } from '@tanstack/react-query'
 import { getAllArticles } from '../api-v2'
 import React from 'react'
-//import { articleList } from '../sample-data-home'
 
 export default function Articles() {
 
@@ -23,7 +22,6 @@ export default function Articles() {
         <React.Fragment key={article.articleId}>
           <Article {...article}/>
         </React.Fragment>
-        
       ))}
     </div>
   )

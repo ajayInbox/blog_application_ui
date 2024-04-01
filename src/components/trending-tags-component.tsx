@@ -1,6 +1,9 @@
 import React from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { getAllTrandingTags } from '../api-v2'
+import { useTagResultContext } from "../context/tags-context"
+import { ArticleTagV2 } from '../types/article-type'
+import { useNavigate } from 'react-router-dom'
 
 export default function TrendingTagsComponent() {
 
@@ -8,6 +11,15 @@ export default function TrendingTagsComponent() {
     queryKey: ["tags"],
     queryFn: () => getAllTrandingTags()
   })
+
+  console.log(allTags.data)
+  const navigate = useNavigate()
+
+  const { setTagContent } = useTagResultContext()
+  const onTagClick = (tag: ArticleTagV2) => {
+    setTagContent(tag)
+    navigate("/search")
+  }
 
   let content = null
   if(allTags.isLoading){
@@ -21,7 +33,7 @@ export default function TrendingTagsComponent() {
     content = (
       allTags.data?.map(( tag ) => (
         <React.Fragment key={tag.tagId}>
-            <p className='batch cursor-pointer'>{tag.tagLabel}</p>
+            <p className='batch cursor-pointer' onClick={() => onTagClick(tag)}>{tag.tagLabel}</p>
         </React.Fragment>
     ))
     )

@@ -6,7 +6,7 @@ import ArticleStat from "./article-stats"
 import UserCard from "./user-card"
 import SmallArticleView from "./small-article-view"
 import PostComment from "./post-comment"
-import { ArticleResultType, ArticleTag } from "../types/article-type"
+import { ArticleResultType, ArticleResultTypeV2, ArticleTag } from "../types/article-type"
 
 export default function ViewArticle({data}:{data:ArticleResultType}) {
 
@@ -56,9 +56,9 @@ export default function ViewArticle({data}:{data:ArticleResultType}) {
         <UserCard user={user}/>
         <div>
           <h2 className="font-semibold text-[20px] p-3">Latest from User</h2>
-          {user.articles.map((id: number) =>(
+          {user.articles.map((article: ArticleResultTypeV2) =>(
             <React.Fragment>
-              <SmallArticleView id={id}/>
+              <SmallArticleView article={article}/>
             </React.Fragment>
           ))}
         </div>

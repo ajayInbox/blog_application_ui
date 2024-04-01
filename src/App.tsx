@@ -5,6 +5,8 @@ import Home from "./pages/Home"
 import ViewArticlePage from "./pages/view-article"
 import SignIn from "./components/sign-in"
 import SignUp from "./components/sign-up"
+import SearchResultPage from "./pages/search-result-page"
+import ProfilePage from "./pages/profile-page"
 
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
       <Route path="/signin" element={<SignIn/>}/>
       <Route path="/signup" element={<SignUp/>}/>
       <Route path="/article/:articleId" element={<ViewArticlePage/>}/>
+      <Route path="/search" element={<SearchResultPage/>}/>
+      <Route path="/profile" element={<ProfilePage/>}/>
     </Routes>
     </>
   )

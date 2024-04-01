@@ -15,7 +15,12 @@ export type ArticleResultType = {
 export type ArticleTag = {
     tagId: number,
     tagLabel: string,
-    articles: []
+    articles: ArticleResultTypeV2[]
+}
+
+export type ArticleTagV2 = {
+    tagId: number,
+    tagLabel: string
 }
 
 export type ArticleType = {
@@ -23,4 +28,13 @@ export type ArticleType = {
     articleTitle: string,
     articleContent: string | Content,
     articleTags: string
+}
+
+export type ArticleResultTypeV2 = {
+    articleId: number,
+    articleBannerUrl: string,
+    articleTitle: string,
+    articleContent: string | Content,
+    readTime: string,
+    createdAt: string,
 }
