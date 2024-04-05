@@ -6,7 +6,6 @@ export default function SearchResultPage() {
 
   return (
     <>
-    <Navbar/>
     <div className='bg-grey h-full'>
       <SearchResultContainer/>
     </div>

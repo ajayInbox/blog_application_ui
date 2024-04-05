@@ -1,16 +1,16 @@
 import { EditorContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Image from '@tiptap/extension-image'
-import { useContentContext } from '../context/content-context'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import toast, { Toaster } from 'react-hot-toast'
 import { useMutation } from '@tanstack/react-query'
 import { addArticle } from '../api-v2'
 import { useNavigate } from 'react-router-dom'
+import { useTagResultContext } from '../context/tags-context'
 
 export default function Preview(){
-  const { wholeContent } = useContentContext()
+  const { wholeContent } = useTagResultContext()
   const{ articleBannerUrl, articleTitle, articleContent, articleTags} = wholeContent
   const navigate = useNavigate()
 

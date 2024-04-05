@@ -21,13 +21,6 @@ export default function ViewArticlePage() {
 
   return (
     <div>
-        <nav className='navbar justify-between'>
-            <Link to={"/"} className="flex-none w-10">
-                <h1 className="w-full">
-                    YeBlog
-                </h1>
-            </Link>
-        </nav>
         <div className='bg-grey'>
             <section className='mx-auto max-w-[1300px] w-full bg-white'>
                 <div className='relative w-full h-[400px] hover:opacity-80 border-4 border-grey mx-auto'>

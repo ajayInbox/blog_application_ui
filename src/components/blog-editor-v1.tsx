@@ -1,13 +1,13 @@
 import { useState } from "react"
 import { Link } from 'react-router-dom'
-import { useContentContext } from "../context/content-context"
 import Tiptap from "./blog-editor-v3"
 import { Content } from "@tiptap/react"
 import { PlusCircle, XCircle } from "lucide-react"
+import { useTagResultContext } from "../context/tags-context"
 
 export default function BlogEditorV1() {
 
-    const{ wholeContent, setWholeContent } = useContentContext()
+    const{ wholeContent, setWholeContent } = useTagResultContext()
     const{ articleBannerUrl, articleTitle, articleContent, articleTags} = wholeContent
 
     const[title, setTitle] = useState(articleTitle)

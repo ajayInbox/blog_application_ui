@@ -7,13 +7,19 @@ import SignIn from "./components/sign-in"
 import SignUp from "./components/sign-up"
 import SearchResultPage from "./pages/search-result-page"
 import ProfilePage from "./pages/profile-page"
+import { useSelector } from "react-redux"
+import { RootState, selectAuthenticated } from "./store/slices/auth-slice"
+import NavbarWithUser from "./components/navbar-with-user"
+import Navbar from "./components/navbar"
 
 
 function App() {
   
+  const result = useSelector( (state: RootState) => selectAuthenticated(state))
 
   return (
     <>
+    {result ? <NavbarWithUser/> : <Navbar/>}
     <Routes>
       <Route path="/editor" element={<Editor/>}/>
       <Route path="/preview" element={<Preview/>}/>
